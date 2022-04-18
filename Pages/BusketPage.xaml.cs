@@ -99,9 +99,13 @@ namespace EkzDemo.Pages
             Sale = DLL.DLL.SaleCost(countBooks, CountCost);
             if (Sale > 1)
                 Sale = 1;
-            
+            if(flag)
             MessageBox.Show("Номер заказ: "+ numOrder + "\n Заказ можно забрать: "+DateTime.Now.AddDays(7).ToShortDateString()+"\n Общее количество книг: "+ countBooks+"\nИтоговая цена:" + Math.Floor(CountCost -(CountCost * Sale))+ "\nСкидка:"+Sale*100);
-            
+            else 
+            {
+                MessageBox.Show("Номер заказ: " + numOrder + "\n Заказ можно забрать: " + DateTime.Now.ToShortDateString() + "\n Общее количество книг: " + countBooks + "\nИтоговая цена:" + Math.Floor(CountCost - (CountCost * Sale)) + "\nСкидка:" + Sale * 100);
+
+            }
             BaseConnect.BaseModel.SaveChanges();
             Busket.Clear();
             BusketListBox.ItemsSource = Busket;
