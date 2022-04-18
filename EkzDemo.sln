@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EkzDemo", "EkzDemo.csproj",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DLL", "DLL\DLL.csproj", "{1412339C-C1F0-4B40-8F4D-14C4DDFDDC92}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{50285E4E-B131-4D5F-A2C6-F9951DA832BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1412339C-C1F0-4B40-8F4D-14C4DDFDDC92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1412339C-C1F0-4B40-8F4D-14C4DDFDDC92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1412339C-C1F0-4B40-8F4D-14C4DDFDDC92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50285E4E-B131-4D5F-A2C6-F9951DA832BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50285E4E-B131-4D5F-A2C6-F9951DA832BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50285E4E-B131-4D5F-A2C6-F9951DA832BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50285E4E-B131-4D5F-A2C6-F9951DA832BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
