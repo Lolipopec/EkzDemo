@@ -33,13 +33,15 @@ namespace EkzDemo.Pages
             InitializeComponent();
             ListBookListBox.ItemsSource = Books;
             this.Busket = Busket;
-            CountSelectBook.Text = Busket.Count().ToString();
             double cost = 0;
+            int count = 0;
             foreach (Book book1 in Busket)
             {
-                cost = cost + Convert.ToDouble(book1.Cost);
+                count += Convert.ToInt32(book1.CountBook);
+                cost = cost + Convert.ToDouble(book1.Cost) * Convert.ToDouble(book1.CountBook);
             }
-            double Sale = DLL.DLL.SaleCost(Busket.Count, cost);
+            CountSelectBook.Text = count.ToString();
+            double Sale = DLL.DLL.SaleCost(Convert.ToInt32(count), cost);
             СostSaleSelectBook.Text = " " + (cost - (cost * Sale)).ToString();
             СostSelectBook.Text = cost.ToString();
             СostSelectBook.Visibility = Visibility.Visible;
@@ -49,35 +51,44 @@ namespace EkzDemo.Pages
                 BaseConnect.BaseModel = new EkzDemoEntities();
                 Books = Book.getListBook();
                 ListBookListBox.ItemsSource = Books;
-                ListBookListBox.Items.Refresh(); 
+                ListBookListBox.Items.Refresh();
             }
         }
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             Button senderButton = (Button)sender;
             int id = Convert.ToInt32(senderButton.Uid);
-            Busket.Add(Books.FirstOrDefault(x => x.id == id));
             Book book = Books.FirstOrDefault(x => x.id == id);
-            ListBookListBox.ItemsSource = Books;
-            if (book.CountInStore > 0)
-                book.CountInStore--;
-            else if (book.CountInStock > 0)
-                book.CountInStock--;
-            else MessageBox.Show("Нет в наличии!");
-            book = Book.getBook(book);
-            ListBookListBox.ItemsSource = Books;
-            CountSelectBook.Text = Busket.Count().ToString();
-            double cost = 0;
-            foreach (Book book1 in Busket)
+            if (book != null)
             {
-                cost = cost + Convert.ToDouble(book1.Cost);
+                if (Convert.ToInt32(book.CountBook) + 1 <= book.CountInStock + book.CountInStore)
+                {
+                    book.CountBook = (Convert.ToInt32(book.CountBook) + 1).ToString();
+                    if (Busket.Where(x => x.id == id).Count()>0)
+                    {
+                    }
+                    else
+                    {
+                        Busket.Add(Books.FirstOrDefault(x => x.id == id));
+                    }
+                    ListBookListBox.ItemsSource = Books;
+                    double cost = 0;
+                    int count = 0;
+                    foreach (Book book1 in Busket)
+                    {
+                        count += Convert.ToInt32(book1.CountBook);
+                        cost = cost + Convert.ToDouble(book1.Cost)* Convert.ToDouble(book1.CountBook);
+                    }
+                    CountSelectBook.Text = count.ToString();
+                    double Sale = DLL.DLL.SaleCost(Convert.ToInt32(count), cost);
+                    СostSaleSelectBook.Text = " " + (cost - (cost * Sale)).ToString();
+                    СostSelectBook.Text = cost.ToString();
+                    СostSelectBook.Visibility = Visibility.Visible;
+                    ListBookListBox.Items.Refresh();
+                    SaleProcentBook.Text = (Sale * 100).ToString();
+                }
+                else MessageBox.Show("Нет в наличии!");
             }
-            double Sale = DLL.DLL.SaleCost(Busket.Count, cost);
-            СostSaleSelectBook.Text = " " + (cost - (cost * Sale)).ToString();
-            СostSelectBook.Text = cost.ToString();
-            СostSelectBook.Visibility = Visibility.Visible;
-            ListBookListBox.Items.Refresh();
-            SaleProcentBook.Text = (Sale * 100).ToString();
         }
 
         private void GoBucket_Click(object sender, RoutedEventArgs e)
